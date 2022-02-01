@@ -21,14 +21,11 @@ contract BlankNFT is ERC1155Supply, Ownable {
   // Token ID -> Price in Ether
   mapping(uint256 => uint256) public pricesETH;
 
-  // Whitelisting: Address -> struct describing claim
-  mapping(address => WhitelistEntry) public whitelisters;
-
   // Token ID -> URI
   mapping (uint256 => string) tokenUris;
 
-  struct WhitelistEntry {
-    address claimer;
+  struct Airdrop {
+    address recipient;
     uint256 tokenId;
     uint256 amount;
   }
@@ -63,12 +60,10 @@ contract BlankNFT is ERC1155Supply, Ownable {
     _mintForAddress(recipient, tokenId, amount);
   }
 
-  function mintWhitelist() external {
-    require(whitelisters[_msgSender()].amount > 0, 'Nothing to claim');
-    uint256 tokenId = whitelisters[_msgSender()].tokenId;
-    uint256 amountToMint = whitelisters[_msgSender()].amount;
-    delete whitelisters[_msgSender()];
-    _mintForAddress(_msgSender(), tokenId, amountToMint);
+  function airdrop(Airdrop[] calldata data) external onlyOwner {
+    for(uint256 i=0; i<data.length; i++){
+       _mintForAddress(data[i].recipient, data[i].tokenId, data[i].amount);
+    }
   }
 
   function create(uint256 supply, uint256 price, string memory tokenURI)
@@ -84,20 +79,6 @@ contract BlankNFT is ERC1155Supply, Ownable {
     tokenUris[tokenId] = tokenURI;
 
     return tokenId;
-  }
-
-  function addToWhitelist(WhitelistEntry[] calldata whitelistInfo)
-    external
-    onlyOwner
-  {
-    for (uint256 i = 0; i < whitelistInfo.length; i++) {
-      require(
-        whitelistInfo[i].tokenId > 0 &&
-          whitelistInfo[i].tokenId <= _tokenCounter.current(),
-        'Wrong ID'
-      );
-      whitelisters[whitelistInfo[i].claimer] = whitelistInfo[i];
-    }
   }
 
   function changePrice(uint256 tokenId, uint256 newPrice)

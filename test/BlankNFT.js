@@ -85,54 +85,21 @@ describe('BlankNFT', function () {
     });
   });
 
-  describe('Whitelist', function () {
-    beforeEach(deploy);
-
-    it('should should add to whitelist if owner', async () => {
-      await blankNFT.addToWhitelist([
-        { claimer: user.address, tokenId: 2, amount: 1 },
-        { claimer: userTwo.address, tokenId: 2, amount: 2 },
-      ]);
-
-      const wl1 = await await blankNFT.whitelisters(user.address);
-      expect(wl1.claimer).to.equal(user.address);
-      expect(wl1.tokenId).to.equal('2');
-      expect(wl1.amount).to.equal('1');
-
-      const wl2 = await await blankNFT.whitelisters(userTwo.address);
-      expect(wl2.claimer).to.equal(userTwo.address);
-      expect(wl2.tokenId).to.equal('2');
-      expect(wl2.amount).to.equal('2');
-    });
-
-    it('should mint for free if whitelisted', async () => {
-      await blankNFT.addToWhitelist([
-        { claimer: userTwo.address, tokenId: 2, amount: 2 },
-      ]);
-
-      await blankNFT.connect(userTwo).mintWhitelist();
-      expect(await blankNFT.balanceOf(userTwo.address, 2)).to.equal(2);
-
-      const wl2 = await await blankNFT.whitelisters(userTwo.address);
-      expect(wl2.claimer).to.equal(
-        '0x0000000000000000000000000000000000000000'
-      );
-      expect(wl2.tokenId).to.equal('0');
-      expect(wl2.amount).to.equal('0');
-
-      await expect(
-        blankNFT.connect(userTwo).mintWhitelist()
-      ).to.be.revertedWith('Nothing to claim');
-    });
-  });
-
   describe('Create', async function () {
     beforeEach(deploy);
 
     it('should create new token', async () => {
-      await blankNFT.create(100, ethers.utils.parseUnits('1'), 'uri');
+      await blankNFT.create(100, ethers.utils.parseUnits('1'), 'dummyHash');
       expect(await blankNFT.maxSupply(3)).to.equal(100);
-      expect(await blankNFT.uri(3)).to.equal('ipfs://uri');
+      expect(await blankNFT.uri(3)).to.equal('ipfs://dummyHash');
+    });
+
+    it('should fail to create new token if not owner', async () => {
+      await expect(
+        blankNFT
+          .connect(userTwo)
+          .create(100, ethers.utils.parseUnits('1'), 'dummyHash')
+      ).to.be.revertedWith('Ownable: caller is not the owner');
     });
   });
 });
