@@ -1,15 +1,13 @@
-# Basic Sample Hardhat Project
+# BlankNFT contracts
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This repository contains contracts for BlankNFT collections
 
-Try running some of the following tasks:
+## Blank’s “Meta-builder” Hoodie
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+Become a part of our trip to the Metaverse by owning Blank’s “Meta-builder” Hoodie NFT.  It grants you whitelist access to our future Drops, gives you a chance to receive random NFT aidrops of the projects we work on or support and a real “Meta-builder” hoodie that will be shipped to your address.
+
+Mint price: 0.1 ETH
+
+Supply: 500
+
+Contract address - 
