@@ -3,14 +3,16 @@ const { ethers } = require('ethers');
 
 async function main() {
   try {
-    const BlankNFT = await hre.ethers.getContractFactory('BlankNFT');
-    const blankNFT = await BlankNFT.deploy();
-    await blankNFT.deployed();
+    const BlankMetaBuilderHoodie = await hre.ethers.getContractFactory(
+      'BlankMetaBuilderHoodie'
+    );
+    const blankMetaBuilderHoodie = await BlankMetaBuilderHoodie.deploy();
+    await blankMetaBuilderHoodie.deployed();
 
     console.log(
       '\x1b[42m',
-      'BlankNFT deployed to:',
-      blankNFT.address,
+      'BlankMetaBuilderHoodie deployed to:',
+      blankMetaBuilderHoodie.address,
       '\x1b[0m'
     );
   } catch (err) {
