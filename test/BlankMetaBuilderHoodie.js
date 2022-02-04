@@ -36,14 +36,14 @@ describe('BlankMetaBuilderHoodie', function () {
 
     it('shoud mint successfully', async function () {
       await blankNFT.mint(1, {
-        value: ethers.utils.parseUnits('0.2'),
+        value: ethers.utils.parseUnits('0.1'),
       });
 
       expect(await blankNFT.balanceOf(owner.address)).to.equal(1);
       expect(await blankNFT.totalSupply()).to.equal(1);
       expect(
         (await blankNFT.provider.getBalance(blankNFT.address)).toString()
-      ).to.equal(ethers.utils.parseUnits('0.2'));
+      ).to.equal(ethers.utils.parseUnits('0.1'));
       expect(await blankNFT.tokenURI(0)).to.equal(
         'ipfs://QmTm1wwZmUGxVa5Mhhye4bkoo3azWUGtnUfmEB99PoRMQZ'
       );
@@ -61,7 +61,7 @@ describe('BlankMetaBuilderHoodie', function () {
     it('shoud fail to mint above max amount', async function () {
       await expect(
         blankNFT.mint(11, {
-          value: ethers.utils.parseUnits('2.2'),
+          value: ethers.utils.parseUnits('1.1'),
         })
       ).to.be.revertedWith('No more than 10 per tx');
     });

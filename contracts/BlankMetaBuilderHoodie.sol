@@ -7,7 +7,7 @@ import "./ERC721A.sol";
 
 contract BlankMetaBuilderHoodie is ERC721A, Ownable {
     using SafeMath for uint256;
-    uint256 tokenPrice = 0.2 ether;
+    uint256 tokenPrice = 0.1 ether;
     uint256 maxSupply = 500;
     uint256 maxPerTx = 10;
 
