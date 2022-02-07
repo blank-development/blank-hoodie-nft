@@ -2,11 +2,9 @@
 pragma solidity ^0.8.1;
 
 import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import "./ERC721A.sol";
 
 contract BlankMetaBuilderHoodie is ERC721A, Ownable {
-    using SafeMath for uint256;
     uint256 tokenPrice = 0.1 ether;
     uint256 maxSupply = 500;
     uint256 maxPerTx = 10;
@@ -17,15 +15,15 @@ contract BlankMetaBuilderHoodie is ERC721A, Ownable {
 
     function mint(uint256 amount) payable external {
         require(tx.origin == msg.sender, "The caller is another contract");
-        require(msg.value >= amount.mul(tokenPrice), "Not enough ether sent");
         require(amount <= maxPerTx, "No more than 10 per tx");
-        require(totalSupply().add(amount) <= maxSupply, "No more hoodies left");
+        require(msg.value >= amount * tokenPrice, "Not enough ether sent");
+        require(totalSupply() + amount <= maxSupply, "No more hoodies left");
         _safeMint(msg.sender, amount);
     }
 
     function airdrop(address[] calldata to, uint256[] calldata amount) public onlyOwner {
         for(uint256 i = 0; i < to.length; i++) {
-            require(totalSupply().add(amount[i]) <= maxSupply, "No more hoodies left");
+            require(totalSupply() + amount[i] <= maxSupply, "No more hoodies left");
             _safeMint(to[i], amount[i]);
         }
     }
