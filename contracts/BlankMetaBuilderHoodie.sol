@@ -37,7 +37,7 @@ contract BlankMetaBuilderHoodie is ERC721A, Ownable {
 		payable(msg.sender).transfer(address(this).balance);
 	}
 
-     function tokenURI(uint256 tokenId)
+    function tokenURI(uint256 tokenId)
         public
         view
         virtual
