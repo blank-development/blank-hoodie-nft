@@ -45,7 +45,7 @@ describe('BlankMetaBuilderHoodie', function () {
         (await blankNFT.provider.getBalance(blankNFT.address)).toString()
       ).to.equal(ethers.utils.parseUnits('0.1'));
       expect(await blankNFT.tokenURI(0)).to.equal(
-        'ipfs://QmTm1wwZmUGxVa5Mhhye4bkoo3azWUGtnUfmEB99PoRMQZ'
+        'ipfs://QmVqodXFfpUU13GJDetcE2UtPLWMBsZubX6ZnhU3XDWhmJ'
       );
     });
 

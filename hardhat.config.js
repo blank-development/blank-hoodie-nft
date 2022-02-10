@@ -20,9 +20,6 @@ module.exports = {
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: [process.env.MAINNET_PRIVATE_KEY],
-      gasPrice: 60000000000,
-      gasMultiplier: 2,
-      timeout: 99999999,
     },
   },
   etherscan: {

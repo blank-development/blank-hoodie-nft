@@ -45,6 +45,6 @@ contract BlankMetaBuilderHoodie is ERC721A, Ownable {
         returns (string memory)
     {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        return "ipfs://QmTm1wwZmUGxVa5Mhhye4bkoo3azWUGtnUfmEB99PoRMQZ";
+        return "ipfs://QmVqodXFfpUU13GJDetcE2UtPLWMBsZubX6ZnhU3XDWhmJ";
     }
 }
