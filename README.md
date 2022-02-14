@@ -10,4 +10,4 @@ Mint price: 0.1 ETH
 
 Supply: 500
 
-Contract address - 
+Contract address: 0x4dDe4F255A3329AE5d5E44F86A561023fd8B9440
